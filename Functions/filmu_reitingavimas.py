@@ -1,5 +1,3 @@
-# filmu_reitingavimas.py
-
 from Classes.reitingai import FilmuReitingavimas
 from Classes.vartotojai import Sveciai
 

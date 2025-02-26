@@ -1,53 +1,43 @@
-# seansu_meniu.py
-
-
-
-# from Classes.seansai import SeansuPlanavimas
-
-# def seanso_meniu():
-#     while True:
-#         print("\nSeanso planavimas")
-#         print("1. Pridėti seansą")
-#         print("2. Rodyti seansus")
-#         print("3. Išeiti iš seanso planavimo")
-        
-#         pasirinkimas = input("Pasirinkite veiksmą: ")
-        
-#         if pasirinkimas == '1':
-#             filmo_pavadinimas = input("Įveskite filmo pavadinimą: ")
-#             data_laikas = input("Įveskite seanso datą ir laiką (YYYY-MM-DD HH:MM): ")
-#             SeansuPlanavimas.prideti_seansa(filmo_pavadinimas, data_laikas)
-        
-#         elif pasirinkimas == '2':
-#            SeansuPlanavimas.rodyti_seansus()
-        
-#         elif pasirinkimas == '3':
-#             print("\nIšėjome iš seanso planavimo")
-#             break
-#         else:
-#             print("Neteisingas pasirinkimas. Bandykite dar kartą.")
-
-
-import Classes.seansai as planavimas
+from Classes.seansai import SeansuTvarkymas, Seansas
+from Classes.kino_festivalis import KinoFestivalis
 
 def seanso_meniu():
-    
+    seansu_tvarkymas = SeansuTvarkymas()
+    festivalis = KinoFestivalis()
+
     while True:
-        print("\nSeanso planavimas")
+        print("\nSeansų Planavimo Sistema")
         print("1. Pridėti seansą")
-        print("2. Rodyti seansus")
-        print("3. Išeiti iš seanso planavimo")
-        
+        print("2. Peržiūrėti seansus")
+        print("3. Išeiti")
+
         pasirinkimas = input("Pasirinkite veiksmą: ")
-        
+
         if pasirinkimas == '1':
-            planavimas.prideti_seansa()
-        
+            pavadinimas = input("Įveskite filmo pavadinimą: ").capitalize()
+            filmas = next((filmas for filmas in festivalis.filmai if filmas.pavadinimas == pavadinimas), None)
+            if filmas:
+                data = input("Įveskite seanso datą (YYYY-MM-DD): ")
+                laikas = input("Įveskite seanso laiką (HH:MM): ")
+                vietu_skaicius = int(input("Įveskite vietų skaičių: "))
+                naujas_seansas = Seansas(filmas, data, laikas, vietu_skaicius)
+                if seansu_tvarkymas.prideti_seansa(naujas_seansas):
+                    print("Seansas pridėtas sėkmingai!")
+                else:
+                    print("Nepavyko pridėti seanso. Patikrinkite, ar tuo metu nėra suplanuota kito filmo.")
+            else:
+                print("Filmas nerastas!")
+
         elif pasirinkimas == '2':
-           planavimas.rodyti_seansus()
-        
+            seansai = seansu_tvarkymas.perziureti_seansus()
+            for seansas in seansai:
+                print(f"Filmas: {seansas.filmas.pavadinimas}, Data: {seansas.data}, Laikas: {seansas.laikas}, Vietų skaičius: {seansas.vietu_skaicius}, Rezervuotos vietos: {seansas.rezervuotos_vietos}")
+
         elif pasirinkimas == '3':
-            print("\nIšėjome iš seanso planavimo")
+            seansu_tvarkymas.issaugoti_duomenis()
+            print("Išeinama iš programos.")
             break
+
         else:
-            print("Neteisingas pasirinkimas. Bandykite dar kartą.")
+            print("Neteisingas pasirinkimas, bandykite dar kartą.")
+
