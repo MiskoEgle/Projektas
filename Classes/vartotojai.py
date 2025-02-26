@@ -1,5 +1,3 @@
-# Classes/vartotojai.py
-
 class Sveciai:
     def __init__(self, vardas, pavarde, role):
         self.vardas = vardas

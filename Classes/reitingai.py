@@ -1,5 +1,3 @@
-# reitingai.py
-
 import pickle
 import os
 
