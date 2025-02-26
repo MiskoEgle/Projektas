@@ -1,10 +1,8 @@
-# config.py
-
 import Functions.filmu_registracija as fil_reg
 import Functions.filmu_paieska as paieska
 import Functions.filmu_reitingavimas as reiting
-import Functions.seansu_planavimas as seans
-import Functions.bilietu_valdymas as bilietai
+import Functions.seansu_meniu as seans
+import Functions.rezervacijos_meniu as reservacija
 
 def svecio_meniu():
     while True:
@@ -19,7 +17,7 @@ def svecio_meniu():
         if pasirinkimas == '1':
             paieska.filmu_perziura_ir_paieska()
         elif pasirinkimas == '2':
-            bilietai.bilietai_meniu()
+            reservacija.rezervaciju_meniu()
         elif pasirinkimas == '3':
             reiting.filmu_reitingavimas()
         elif pasirinkimas == '4':
